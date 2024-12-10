@@ -48,5 +48,4 @@ static/
 node_modules/
 bower_components/
 .sass-cache/
-.env
 venv/

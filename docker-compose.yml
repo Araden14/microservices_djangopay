@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:${PORT} wsgi:application
+    volumes:
+      - .:/app
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+volumes:
+  postgres_data: 
