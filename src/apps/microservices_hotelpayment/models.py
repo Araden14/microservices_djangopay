@@ -12,7 +12,7 @@ class BaseModel(models.Model):
         abstract = True
 
 class Payment(BaseModel):
-    payment_id = models.CharField(max_length=24, primary_key=True)
+    payment_id = models.CharField(primary_key=True, default=uuid4, editable=False)
     reservation_id = models.CharField(max_length=24)
     client_id = models.CharField(max_length=24)
     amount = models.DecimalField(max_digits=10, decimal_places=2)

@@ -68,6 +68,34 @@ def create_payment(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+#Get all payments
+@swagger_auto_schema(
+    method='get',
+    operation_description="Get all payments",
+    responses={
+        200: openapi.Response(
+            description="List of all payments",
+            examples={"application/json": [{"payment_id": "uuid", "reservation_id": "id", "client_id": "id", "amount": 100.00, "currency": "EUR", "status": "Confirmed", "paymentmethod": "card"}]}
+        )
+    }
+)
+@csrf_exempt
+@api_view(['GET'])
+def get_all_payments(request):
+    payments = Payment.objects.all()
+    payment_list = []
+    for payment in payments:
+        payment_list.append({
+            'payment_id': payment.payment_id,
+            'reservation_id': payment.reservation_id,
+            'client_id': payment.client_id,
+            'amount': payment.amount,
+            'currency': payment.currency,
+            'status': payment.status,
+            'paymentmethod': payment.paymentmethod
+        })
+    return Response(payment_list, status=status.HTTP_200_OK)
+
 @csrf_exempt
 @api_view(['PUT'])
 def update_payment(request, reservation_id):
