@@ -13,7 +13,7 @@ schema_view = get_schema_view(
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
-   url=f'http://localhost:8000',  # Add your base URL here
+   url=f'http://localhost:7000',
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
